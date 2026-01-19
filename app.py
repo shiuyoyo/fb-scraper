@@ -24,19 +24,25 @@ with st.sidebar:
 def scrape_fb(urls):
     results = []
     
-    # Selenium 設定 (為了在雲端執行，必須使用 headless 模式)
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--disable-notifications")
+    chrome_options.add_argument("--disable-gpu")
+    # 偽裝成一般瀏覽器避開部分阻擋
+    chrome_options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36")
     
     try:
-        service = Service(ChromeDriverManager().install())
+        # 在 Streamlit Cloud 環境中，chromedriver 通常位於 /usr/bin/chromedriver
+        service = Service("/usr/bin/chromedriver")
         driver = webdriver.Chrome(service=service, options=chrome_options)
         
         progress_bar = st.progress(0)
         for i, url in enumerate(urls):
+            # ... 接下來的抓取邏輯保持不變 ...
+            driver.get(url.replace("www.facebook.com", "m.facebook.com"))
+            time.sleep(5)
+            # ... 抓取代碼 ...
             url = url.strip()
             if not url: continue
             
