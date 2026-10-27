@@ -1,0 +1,8 @@
+category_id,category_name,category_description,category_sort,item_id,item_name,item_description,price,price_label,currency,tags,featured,new_item,sold_out,item_sort
+main,主餐,每日新鮮製作,10,m-001,炙燒時蔬燉飯,季節蔬菜與香草慢燉,320,,TWD,招牌,false,false,false,10
+main,主餐,每日新鮮製作,10,m-002,森日咖哩鍋,十種蔬菜熬煮的日式咖哩,280,,TWD,素食,false,false,false,20
+main,主餐,每日新鮮製作,10,m-003,主廚季節料理,依當日市場食材決定,,時價,TWD,限量,false,true,false,30
+side,配菜與小點,,20,s-001,烤時蔬盤,當季根莖類炭烤,160,,TWD,,false,false,false,10
+side,配菜與小點,,20,s-002,溫野菜沙拉,溫熱蔬菜佐胡麻醬,140,,TWD,純素,false,false,false,20
+drink,飲品,,30,d-001,當季果昔,依水果調整,120,,TWD,,false,false,false,10
+drink,飲品,,30,d-002,手沖咖啡,,140,,TWD,,false,false,false,20

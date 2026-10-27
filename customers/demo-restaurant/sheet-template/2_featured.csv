@@ -1,0 +1,4 @@
+item_id,item_name,item_description,price,price_label,currency,tags,sold_out,item_sort
+f-001,炙燒時蔬燉飯,季節蔬菜與香草慢燉,320,,TWD,招牌|人氣,false,10
+f-002,森日咖哩鍋,十種蔬菜熬煮的日式咖哩,280,,TWD,人氣|素食,false,20
+f-003,主廚季節料理,依當日市場食材決定,,時價,TWD,限量,false,30

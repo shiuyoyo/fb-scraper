@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Default palette (ocean) on :root, so theme tokens like bg-background and
+ * text-foreground always resolve — including on <body>, which sits outside the
+ * per-customer themed <div>. Each template's outer div re-applies the
+ * customer's chosen palette via themeStyle(), overriding these defaults.
+ */
+:root {
+  color-scheme: light;
+  --color-primary: 37 99 235;
+  --color-primary-hover: 29 78 216;
+  --color-accent: 14 116 144;
+  --color-background: 255 255 255;
+  --color-surface: 248 250 252;
+  --color-foreground: 15 23 42;
+  --color-border: 226 232 240;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}

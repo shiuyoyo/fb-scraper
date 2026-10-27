@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Placeholder 3">
+  <defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#E6E1DC"/><stop offset="1" stop-color="#D2CAC2"/>
+  </linearGradient></defs>
+  <rect width="800" height="600" fill="url(#g3)"/>
+  <text x="400" y="315" text-anchor="middle" font-family="sans-serif" font-size="56" fill="#64748B">3</text>
+</svg>

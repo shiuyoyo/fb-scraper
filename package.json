@@ -1,0 +1,24 @@
+{
+  "name": "evalycloud",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "new:customer": "node scripts/new-customer.mjs",
+    "use:customer": "node scripts/use-customer.mjs",
+    "dev:customer": "node scripts/dev-customer.mjs",
+    "build:customer": "node scripts/build-customer.mjs",
+    "customers": "node scripts/list-customers.mjs",
+    "images": "node scripts/optimize-images.mjs",
+    "test": "node --experimental-strip-types --test packages/external-data/test/*.test.ts packages/templates/test/*.test.ts"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2"
+  }
+}

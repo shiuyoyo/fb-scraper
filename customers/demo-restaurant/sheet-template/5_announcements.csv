@@ -1,0 +1,3 @@
+id,title,body,enabled,sort_order
+promo-001,平日午餐優惠,平日 11:30–14:00 主餐套餐贈當日飲品。,true,10
+promo-002,週年慶,本月消費滿額贈甜點。,false,20

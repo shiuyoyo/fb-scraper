@@ -1,0 +1,21 @@
+{
+  "name": "@evalycloud/templates",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@evalycloud/config": "workspace:*",
+    "@evalycloud/content-schema": "workspace:*",
+    "@evalycloud/external-data": "workspace:*",
+    "@evalycloud/ui": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "typescript": "^5.7.2"
+  }
+}

@@ -1,0 +1,8 @@
+day,closed,open_1,close_1,open_2,close_2,note,sort_order
+monday,true,,,,,公休,10
+tuesday,false,11:30,14:30,17:30,21:00,,20
+wednesday,false,11:30,14:30,17:30,21:00,,30
+thursday,false,11:30,14:30,17:30,21:00,,40
+friday,false,11:30,14:30,17:30,21:00,,50
+saturday,false,11:00,21:00,,,全天營業,60
+sunday,false,11:00,21:00,,,全天營業,70
