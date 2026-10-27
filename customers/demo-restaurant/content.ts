@@ -9,91 +9,23 @@ const content: RestaurantSiteContent = {
     template: "classic",
     theme: "forest",
     currency: "TWD",
-    // Enable and fill csvUrl per source to let the sheet override content.
-    // See docs/GOOGLE_SHEETS_CONTENT.md. Disabled here so the demo is static.
+    // 每個試算表分頁各自「發布到網路 → CSV」,把網址貼進對應的 csvUrl。
+    // csvUrl 留空 = 該分頁停用,那一段就用下面的本地內容。
+    // 分頁範本:pnpm sheet:template <slug>。說明:docs/GOOGLE_SHEETS_CONTENT.md
     sheets: {
       enabled: true,
       sources: {
-        // 每個分頁各自「發布到網路 → CSV」,把網址貼進對應的 csvUrl。
-        // csvUrl 留空 = 該分頁停用,那一段就用下面的本地內容。
         site: {
           enabled: true,
           csvUrl:
             "https://docs.google.com/spreadsheets/d/e/2PACX-1vQlICWDkw79pY6Yk9kjcplBuphDGGMAQoYPUXha7lSEJnaPzGgnRFvAzJZrx0QvNUqW9aVML4IGt8u6/pub?gid=0&single=true&output=csv",
-          mapping: { key: "key", value: "value" },
         },
-        featured: {
-          enabled: true,
-          csvUrl: "",
-          mapping: {
-            item_id: "item_id",
-            item_name: "item_name",
-            item_description: "item_description",
-            price: "price",
-            price_label: "price_label",
-            currency: "currency",
-            tags: "tags",
-            sold_out: "sold_out",
-            item_sort: "item_sort",
-          },
-        },
-        menu: {
-          enabled: true,
-          csvUrl: "",
-          mapping: {
-            category_id: "category_id",
-            category_name: "category_name",
-            category_description: "category_description",
-            category_sort: "category_sort",
-            item_id: "item_id",
-            item_name: "item_name",
-            item_description: "item_description",
-            price: "price",
-            price_label: "price_label",
-            currency: "currency",
-            tags: "tags",
-            featured: "featured",
-            new_item: "new_item",
-            sold_out: "sold_out",
-            item_sort: "item_sort",
-          },
-        },
-        openingHours: {
-          enabled: true,
-          csvUrl: "",
-          mapping: {
-            day: "day",
-            closed: "closed",
-            open_1: "open_1",
-            close_1: "close_1",
-            open_2: "open_2",
-            close_2: "close_2",
-            note: "note",
-            sort_order: "sort_order",
-          },
-        },
-        announcements: {
-          enabled: true,
-          csvUrl: "",
-          mapping: {
-            id: "id",
-            title: "title",
-            body: "body",
-            enabled: "enabled",
-            sort_order: "sort_order",
-          },
-        },
-        faq: {
-          enabled: true,
-          csvUrl: "",
-          mapping: {
-            id: "id",
-            question: "question",
-            answer: "answer",
-            enabled: "enabled",
-            sort_order: "sort_order",
-          },
-        },
+        featured: { enabled: true, csvUrl: "" },
+        menu: { enabled: true, csvUrl: "" },
+        openingHours: { enabled: true, csvUrl: "" },
+        announcements: { enabled: true, csvUrl: "" },
+        faq: { enabled: true, csvUrl: "" },
+        gallery: { enabled: true, csvUrl: "" },
       },
     },
   },

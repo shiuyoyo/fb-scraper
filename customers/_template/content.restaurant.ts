@@ -7,7 +7,21 @@ const content: RestaurantSiteContent = {
     template: "classic",
     currency: "TWD",
     // theme: "forest" | "terracotta" | "ivory" | "ocean" | "plum"
-    sheets: { enabled: false, sources: {} },
+    // 每個試算表分頁各自「發布到網路 → CSV」,把網址貼進對應的 csvUrl。
+    // csvUrl 留空 = 該分頁停用,那一段就用下面的本地內容。
+    // 分頁範本:pnpm sheet:template <slug>。說明:docs/GOOGLE_SHEETS_CONTENT.md
+    sheets: {
+      enabled: true,
+      sources: {
+        site: { enabled: true, csvUrl: "" },
+        featured: { enabled: true, csvUrl: "" },
+        menu: { enabled: true, csvUrl: "" },
+        openingHours: { enabled: true, csvUrl: "" },
+        announcements: { enabled: true, csvUrl: "" },
+        faq: { enabled: true, csvUrl: "" },
+        gallery: { enabled: true, csvUrl: "" },
+      },
+    },
   },
   hero: {
     name: "餐廳名稱",

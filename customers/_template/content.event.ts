@@ -7,6 +7,20 @@ const content: EventSiteContent = {
     template: "classic",
     status: "upcoming", // upcoming | open | closed | completed | archived
     // theme: "ocean" | "forest" | "ivory" | "terracotta" | "plum"
+    // 每個試算表分頁各自「發布到網路 → CSV」,把網址貼進對應的 csvUrl。
+    // csvUrl 留空 = 該分頁停用,那一段就用下面的本地內容。
+    // 分頁範本:pnpm sheet:template <slug>。說明:docs/GOOGLE_SHEETS_CONTENT.md
+    sheets: {
+      enabled: true,
+      sources: {
+        site: { enabled: true, csvUrl: "" },
+        schedule: { enabled: true, csvUrl: "" },
+        speakers: { enabled: true, csvUrl: "" },
+        announcements: { enabled: true, csvUrl: "" },
+        faq: { enabled: true, csvUrl: "" },
+        sponsors: { enabled: true, csvUrl: "" },
+      },
+    },
   },
   hero: {
     title: "活動名稱",

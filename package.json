@@ -14,6 +14,7 @@
     "build:customer": "node scripts/build-customer.mjs",
     "customers": "node scripts/list-customers.mjs",
     "images": "node scripts/optimize-images.mjs",
+    "sheet:template": "node --experimental-strip-types scripts/sheet-template.mjs",
     "test": "node --experimental-strip-types --test packages/external-data/test/*.test.ts packages/templates/test/*.test.ts"
   },
   "devDependencies": {

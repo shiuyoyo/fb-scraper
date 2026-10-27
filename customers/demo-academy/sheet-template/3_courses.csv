@@ -1,0 +1,4 @@
+﻿id,name,audience,description,price_label,schedule,duration,image_src,image_alt,tags,featured,enabled,sort_order
+c1,兒童美語（初階）,國小一至三年級,從自然發音開始，建立聽說基礎。,電洽,每週二、四 17:00–18:30,12 週 / 24 堂,,,,true,true,
+c2,兒童美語（進階）,國小四至六年級,閱讀與寫作並重，銜接國中課程。,電洽,每週一、三 18:00–19:30,12 週 / 24 堂,,,,false,true,
+c3,成人日語入門,零基礎成人,從五十音到日常會話。,體驗課免費,每週六 10:00–12:00,16 週 / 16 堂,,,,false,true,

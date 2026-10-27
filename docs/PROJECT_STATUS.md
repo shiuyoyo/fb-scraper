@@ -1,6 +1,6 @@
 # 專案現況與交接說明
 
-> 最後更新：2026-10-27（對應 v2.8）
+> 最後更新：2026-10-27（v2.9 + 五個 Kit 全部接上 Google Sheet）
 > 給接手的人（含 Claude Code）：**動手前先讀完這份**。
 > 裡面有幾個已經踩過、修好、但很容易被改回去的坑。
 
@@ -158,19 +158,44 @@ Sheet 範本 CSV 裡，句子中間要用**全形逗號（，）**，
 
 ### 現況
 
-**只有 Restaurant Kit 接好了。** 其他四個 Kit 的資料層是共用的、支援得了，
-但還沒有對應的 mapper 與 source 設定。
+**五個 Kit 都接好了，網站上每一段客戶內容都能從試算表改。**
+各 Kit 的分頁與欄位、客戶操作說明、開發者設定步驟都在 `docs/GOOGLE_SHEETS_CONTENT.md`。
 
-Restaurant 的六個分頁（範本在 `customers/demo-restaurant/sheet-template/`）：
+| Kit | 分頁 |
+|---|---|
+| business | `site` · `services` · `gallery` · `faq` |
+| restaurant | `site` · `featured` · `menu` · `openingHours` · `announcements` · `faq` · `gallery` |
+| event | `site`（含 `status`/`notice`/`registered`/`capacity`）· `schedule` · `speakers` · `announcements` · `faq` · `sponsors` |
+| education | `site` · `features` · `courses` · `teachers` · `gallery` · `faq` |
+| portfolio | `site` · `projects` · `services` · `clients` |
 
-| 分頁 | 內容 | 長度 |
-|---|---|---|
-| `site` | key/value：店名、副標、標語、介紹、關於、地區、營業摘要、地址、地圖、交通、訂位、聯絡 | 固定 |
-| `featured` | 人氣料理 | 可增減 |
-| `menu` | 完整菜單（分類 + 品項） | 可增減 |
-| `openingHours` | 營業時間 | 七列 |
-| `announcements` | 最新優惠 | 可增減 |
-| `faq` | 常見問題 | 可增減 |
+`site` 分頁是 key/value，涵蓋所有單一值欄位（hero、按鈕、about、聯絡、地點、
+訂位／報名、段落標題 `labels.*`、SEO、色盤）。
+
+### 程式在哪
+
+- `packages/external-data/src/kit-sheets.ts`：通用流程。每個 Kit 一份 `KitSheetSpec`
+  （可選欄位 + 列表分頁），同一份 spec **同時負責解析與匯出範本**
+- `packages/external-data/src/<kit>.ts`：各 Kit 的 spec 與列表 mapper
+- `packages/external-data/src/resolve.ts`：`resolveCustomerContent(kit, content)`，
+  `scripts/resolve-content.mjs` 呼叫它
+- `pnpm sheet:template <slug>`：從 `content.ts` 產生預先填好的分頁 CSV
+- `packages/external-data/test/kits.test.ts`：**涵蓋率測試**——把每個 demo 的內容全部
+  換成佔位字，再用它匯出的試算表解析回來，必須和原內容完全一樣。
+  **新增 schema 欄位卻沒接上試算表，這個測試會失敗。**
+
+### 試算表改不了的
+
+`site.template`、`site.language`、`site.sheets`、`site.sheet`、`site.status` 被鎖住
+（`LOCKED_PATHS`）；`site.theme` 只接受五個色盤名稱。活動狀態只能透過 `status` 列，
+且只能讓頁面更保守（`resolveStatus`）。
+
+### Event 的即時值
+
+`status` / `notice` / `registered` / `capacity` 和內容一樣，在 build 前由
+`use-customer.mjs` 解析，寫成 `content.generated.ts` 的 `export const live`。
+**`apps/event-kit-demo/app/page.tsx` 不 fetch**（原本在頁面裡 fetch，正是第四節第 2 點的坑）。
+舊的單一分頁 `site.sheet` 仍支援。
 
 ### 合併規則（`packages/external-data/src/merge.ts`）
 
@@ -185,6 +210,9 @@ Restaurant 的六個分頁（範本在 `customers/demo-restaurant/sheet-template
 - 單一壞資料列只丟那一列
 - 整個 source 失敗 → 該段用 fallback，**網站不會壞**
 - schema 沒宣告的欄位會被忽略，不會憑空新增
+- 可選物件（如 `hero.image`、`hero.secondaryCta`）可以從試算表新增；
+  必要欄位沒填齊（沒有 src 的圖、沒有連結的按鈕）就整個不加
+- 列表分頁的 `enabled=false` 列會被略過；`sort_order` 決定順序
 
 ### 價格
 
@@ -283,14 +311,10 @@ Hero 版面、導覽方式、區塊排列、圖片比例、CTA 呈現、手機�
 
 每款完成後 `registry.test.ts` 的數量斷言要跟著更新。
 
-### B. 其他四個 Kit 的 Google Sheet 接線
+### B. ~~其他四個 Kit 的 Google Sheet 接線~~ ✅ 已完成
 
-資料層是共用的，缺的是各 Kit 的 mapper 與 `sources` 設定。
-Restaurant 的 `packages/external-data/src/restaurant.ts` 是可以照抄的範本。
-Business / Education / Portfolio / Event 各自需要：
-- 一個 `<kit>.ts` mapper
-- demo 客戶的 `sheets` 設定
-- 一組 sheet-template CSV
+見第五節。每位真實客戶仍需要做一次：`pnpm sheet:template <slug>` → 匯入
+Google 試算表 → 發布各分頁 → 把 CSV 網址貼進 `content.ts`。
 
 ### C. 其他四個 Kit 部署到 Cloudflare
 
@@ -315,7 +339,7 @@ Restaurant 的手機版已經人工看過，排版正確。
 ```bash
 pnpm typecheck      # 6 apps
 pnpm lint           # 6 apps
-pnpm test           # 35 tests
+pnpm test           # 48 tests
 pnpm build          # 6 apps
 pnpm build:customer demo-restaurant
 ```

@@ -6,6 +6,18 @@ const content: BusinessSiteContent = {
     language: "zh-TW",
     template: "classic",
     // theme: "ocean" | "forest" | "ivory" | "terracotta" | "plum"
+    // 每個試算表分頁各自「發布到網路 → CSV」,把網址貼進對應的 csvUrl。
+    // csvUrl 留空 = 該分頁停用,那一段就用下面的本地內容。
+    // 分頁範本:pnpm sheet:template <slug>。說明:docs/GOOGLE_SHEETS_CONTENT.md
+    sheets: {
+      enabled: true,
+      sources: {
+        site: { enabled: true, csvUrl: "" },
+        services: { enabled: true, csvUrl: "" },
+        gallery: { enabled: true, csvUrl: "" },
+        faq: { enabled: true, csvUrl: "" },
+      },
+    },
   },
   hero: {
     eyebrow: "一句話說明你在做什麼",

@@ -37,9 +37,11 @@ if (!existsSync(source)) fail(`customers/${slug}/content.ts not found.`);
 // static export never runs the page's async fetch. The result is baked in.
 const kitNameForSlug = site.kit;
 let resolvedContent;
+let live;
 try {
   const result = await resolveContentForBuild(slug, source, kitNameForSlug, repoRoot);
   resolvedContent = result.content;
+  live = result.live;
   console.log(`✓ ${kit.app} → ${slug} (${site.displayName || slug}) — ${result.note}`);
   if (result.diagnostics && Object.keys(result.diagnostics).length > 0) {
     console.log(`  sheet notes: ${JSON.stringify(result.diagnostics)}`);
@@ -49,6 +51,14 @@ try {
   console.warn(`  sheet resolution skipped: ${error?.message ?? error}`);
   resolvedContent = null;
 }
+
+// The Event kit also gets its live values (status / notice / seats), baked in
+// for the same reason as the content: the page must not fetch.
+const liveExport =
+  kitNameForSlug === "event"
+    ? `\nexport const live: EventLive | undefined = ${live ? JSON.stringify(live, null, 2) : "undefined"};\n`
+    : "";
+const liveImport = kitNameForSlug === "event" ? `import type { EventLive } from "@evalycloud/external-data";\n` : "";
 
 const banner = `// GENERATED — do not edit.\n// Source: customers/${slug}/content.ts\n// Run: pnpm use:customer ${slug}\n\n`;
 
@@ -65,12 +75,18 @@ if (resolvedContent) {
             ? "PortfolioSiteContent"
             : "BusinessSiteContent";
   const body =
-    `import type { ${typeName} } from "@evalycloud/content-schema";\n\n` +
-    `const content: ${typeName} = ${JSON.stringify(resolvedContent, null, 2)};\n\n` +
-    `export default content;\n`;
+    `import type { ${typeName} } from "@evalycloud/content-schema";\n` +
+    liveImport +
+    `\nconst content: ${typeName} = ${JSON.stringify(resolvedContent, null, 2)};\n\n` +
+    `export default content;\n` +
+    liveExport;
   writeFileSync(join(appDir, "app", "content.generated.ts"), banner + body);
 } else {
-  writeFileSync(join(appDir, "app", "content.generated.ts"), banner + readFileSync(source, "utf8"));
+  const raw = readFileSync(source, "utf8");
+  writeFileSync(
+    join(appDir, "app", "content.generated.ts"),
+    banner + (liveExport ? liveImport + raw + liveExport : raw),
+  );
 }
 
 const publicImages = join(appDir, "public", "images");

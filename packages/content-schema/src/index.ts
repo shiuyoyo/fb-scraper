@@ -45,8 +45,11 @@ export type SheetSource = {
   enabled: boolean;
   /** File → Share → Publish to web → CSV. */
   csvUrl: string;
-  /** Column header in the sheet → field name the template expects. */
-  mapping: Record<string, string>;
+  /**
+   * Column header in the sheet → field name the mapper expects. Omit it to
+   * use the headers as-is (the kit sheet templates already use the right names).
+   */
+  mapping?: Record<string, string>;
   /** Fields to coerce from text to number; unparseable values are dropped. */
   numberFields?: string[];
   /** Seconds before a rebuild refetches. Only meaningful when not statically exported. */
@@ -73,7 +76,7 @@ type SiteMetaBase = {
   seo?: SeoMeta;
   /** Single-source live data (used by the Event kit's key/value sheet). */
   sheet?: SheetSource;
-  /** Multi-source live data (used by the Restaurant kit). */
+  /** One published tab per section; every kit supports it. See docs/GOOGLE_SHEETS_CONTENT.md. */
   sheets?: MultiSheetConfig;
 };
 

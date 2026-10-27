@@ -1,7 +1,24 @@
 import type { PortfolioSiteContent } from "@evalycloud/content-schema";
 
 const content: PortfolioSiteContent = {
-  site: { name: "沐光設計", language: "zh-TW", template: "classic", theme: "ivory" },
+  site: {
+    name: "沐光設計",
+    language: "zh-TW",
+    template: "classic",
+    theme: "ivory",
+    // 每個試算表分頁各自「發布到網路 → CSV」,把網址貼進對應的 csvUrl。
+    // csvUrl 留空 = 該分頁停用,那一段就用下面的本地內容。
+    // 分頁範本:pnpm sheet:template <slug>。說明:docs/GOOGLE_SHEETS_CONTENT.md
+    sheets: {
+      enabled: true,
+      sources: {
+        site: { enabled: true, csvUrl: "" },
+        projects: { enabled: true, csvUrl: "" },
+        services: { enabled: true, csvUrl: "" },
+        clients: { enabled: true, csvUrl: "" },
+      },
+    },
+  },
   hero: {
     name: "沐光設計工作室",
     role: "品牌與平面設計",

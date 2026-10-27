@@ -18,5 +18,4 @@ const run = (cmd, args) => {
 run("node", ["scripts/use-customer.mjs", slug]);
 run("pnpm", ["--filter", kit.pkg, "build"]);
 
-console.log(`\n✓ Built ${site.displayName || slug} → apps/${kit.app}/.next`);
-console.log(`  Add output: "export" to that app's next.config.ts if you need a static out/ folder to upload.\n`);
+console.log(`\n✓ Built ${site.displayName || slug} → apps/${kit.app}/out\n`);

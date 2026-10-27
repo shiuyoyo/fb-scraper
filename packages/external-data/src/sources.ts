@@ -17,7 +17,17 @@ export type SheetSourceName =
   | "faq"
   | "menu"
   | "featured"
-  | "openingHours";
+  | "openingHours"
+  | "gallery"
+  | "services"
+  | "schedule"
+  | "speakers"
+  | "sponsors"
+  | "features"
+  | "courses"
+  | "teachers"
+  | "projects"
+  | "clients";
 
 export type LoadedSources = Partial<Record<SheetSourceName, SheetResult>>;
 

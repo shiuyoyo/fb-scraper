@@ -5,6 +5,7 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "dependencies": {
+    "@evalycloud/config": "workspace:*",
     "@evalycloud/content-schema": "workspace:*"
   },
   "devDependencies": {

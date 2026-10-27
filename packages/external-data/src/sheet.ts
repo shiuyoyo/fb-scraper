@@ -93,7 +93,7 @@ export async function loadSheet<T = Record<string, string | number>>(
     const record: Record<string, string | number> = {};
 
     headers.forEach((header, index) => {
-      const field = source.mapping[header];
+      const field = source.mapping ? source.mapping[header] : header;
       if (!field) return; // column not mapped — ignore it rather than guess
 
       const raw = (cells[index] ?? "").trim();

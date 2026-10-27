@@ -16,11 +16,21 @@ customers/
 ## Adding a customer
 
 ```bash
-pnpm new:customer wanglai-cafe business   # or: event
+pnpm new:customer wanglai-cafe business   # business | restaurant | event | education | portfolio
 # edit customers/wanglai-cafe/content.ts
-# drop photos into customers/wanglai-cafe/images/
+# drop photos into customers/wanglai-cafe/images-source/
 pnpm dev:customer wanglai-cafe
 ```
+
+## Letting the customer edit from Google Sheets
+
+```bash
+pnpm sheet:template wanglai-cafe          # → customers/wanglai-cafe/sheet-template/*.csv
+```
+
+Import each CSV as a tab of one Google Sheet, publish each tab as CSV, and paste
+the links into `site.sheets.sources` in `content.ts`. Steps and column
+reference: `docs/GOOGLE_SHEETS_CONTENT.md`.
 
 ## Photos
 
@@ -54,7 +64,8 @@ pnpm customers                            # list everything on file
 
 ## How it works
 
-`use-customer.mjs` copies `content.ts` into the app as `content.generated.ts`
+`use-customer.mjs` resolves the customer's Google Sheet tabs (if wired) onto
+`content.ts`, writes the result into the app as `content.generated.ts`,
 and syncs `images/` into the app's `public/images`. Both are gitignored — the
 customer folder is the source of truth, the app is scratch space.
 

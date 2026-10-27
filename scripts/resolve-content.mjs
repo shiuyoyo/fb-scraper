@@ -7,7 +7,7 @@
  * where fetch works — and write already-merged content for the page to import
  * synchronously.
  *
- * Only the restaurant kit currently wires sheets; other kits pass through.
+ * Every kit resolves through @evalycloud/external-data's resolveCustomerContent.
  */
 import { pathToFileURL } from "node:url";
 
@@ -19,21 +19,17 @@ async function loadModule(tsPath) {
 
 export async function resolveContentForBuild(slug, contentTsPath, kitName, repoRoot) {
   const content = await loadModule(contentTsPath);
+  const wired = content?.site?.sheets?.enabled || (kitName === "event" && content?.site?.sheet?.enabled);
 
-  if (kitName !== "restaurant" || !content?.site?.sheets?.enabled) {
+  if (!wired) {
     return { content, note: "no sheet resolution" };
   }
 
-  const { resolveRestaurantContent } = await loadModule(
-    `${repoRoot}/packages/external-data/src/index.ts`,
-  );
+  const { resolveCustomerContent } = await loadModule(`${repoRoot}/packages/external-data/src/index.ts`);
 
   try {
-    const { content: resolved, diagnostics } = await resolveRestaurantContent(
-      content,
-      content.site.sheets,
-    );
-    return { content: resolved, note: "sheets resolved", diagnostics };
+    const { content: resolved, live, diagnostics } = await resolveCustomerContent(kitName, content);
+    return { content: resolved, live, note: "sheets resolved", diagnostics };
   } catch (error) {
     return { content, note: `sheet resolution failed: ${error?.message ?? error}` };
   }

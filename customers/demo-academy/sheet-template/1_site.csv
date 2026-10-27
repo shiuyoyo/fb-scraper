@@ -1,0 +1,40 @@
+﻿key,value
+site.name,晨光語言學苑
+site.theme,ocean
+site.logo,
+site.seo.title,
+site.seo.description,
+site.seo.ogImage,
+hero.name,晨光語言學苑
+hero.subtitle,Morning Light Language Academy
+hero.tagline,把語言變成孩子帶得走的能力
+hero.intro,小班制英語與日語教學，第十二年。重視開口，不只考試。
+hero.coursesCta.label,查看課程
+hero.coursesCta.href,#courses
+hero.enrollCta.label,預約試聽
+hero.enrollCta.href,#enroll
+hero.image.src,
+hero.image.alt,
+about.title,關於晨光
+about.description,我們相信語言是用出來的。每班不超過八人，每堂課都要求孩子開口。師資皆有實際教學經驗與檢定資格。
+enrollment.intro,歡迎預約試聽或來電諮詢課程與費用。
+enrollment.phone,04-1234-5678
+enrollment.lineUrl,https://line.me/
+enrollment.formUrl,https://forms.gle/
+venue.name,晨光語言學苑
+venue.address,台中市示範區學府路 25 號 3 樓
+venue.mapUrl,https://maps.google.com/
+venue.transportNotes,捷運學府站步行 3 分鐘。
+contact.phone,04-1234-5678
+contact.email,hello@example.com
+contact.lineUrl,https://line.me/
+contact.instagramUrl,
+contact.facebookUrl,
+contact.mapUrl,
+labels.about,
+labels.courses,
+labels.teachers,
+labels.features,
+labels.faq,
+labels.enroll,
+labels.gallery,

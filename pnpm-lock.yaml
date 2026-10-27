@@ -380,6 +380,9 @@ importers:
 
   packages/external-data:
     dependencies:
+      '@evalycloud/config':
+        specifier: workspace:*
+        version: link:../config
       '@evalycloud/content-schema':
         specifier: workspace:*
         version: link:../content-schema

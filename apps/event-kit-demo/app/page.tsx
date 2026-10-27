@@ -1,9 +1,8 @@
 import { EventKit } from "@evalycloud/templates";
-import { loadEventLive } from "@evalycloud/external-data";
-import content from "./content.generated";
+import content, { live } from "./content.generated";
 
-// The page resolves external data; the template only renders it.
-export default async function Page() {
-  const live = await loadEventLive(content);
+// Sheet overrides and live values are already baked into content.generated.ts
+// by the build script (static export can't fetch at page render).
+export default function Page() {
   return <EventKit content={content} live={live} />;
 }

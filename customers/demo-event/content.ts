@@ -7,11 +7,26 @@ const content: EventSiteContent = {
     language: "zh-TW",
     status: "open",
     template: "classic",
-    // 啟用後可由試算表即時改狀態與公告，不需重新建置。
+    // 舊版的單一即時狀態分頁,仍然支援。新客戶請改用下面 sheets.site 分頁的
+    // status / notice / registered / capacity 四列。兩者都要重新建置才會生效。
     sheet: {
       enabled: false,
       csvUrl: "",
       mapping: { key: "key", value: "value" },
+    },
+    // 每個試算表分頁各自「發布到網路 → CSV」,把網址貼進對應的 csvUrl。
+    // csvUrl 留空 = 該分頁停用,那一段就用下面的本地內容。
+    // 分頁範本:pnpm sheet:template <slug>。說明:docs/GOOGLE_SHEETS_CONTENT.md
+    sheets: {
+      enabled: true,
+      sources: {
+        site: { enabled: true, csvUrl: "" },
+        schedule: { enabled: true, csvUrl: "" },
+        speakers: { enabled: true, csvUrl: "" },
+        announcements: { enabled: true, csvUrl: "" },
+        faq: { enabled: true, csvUrl: "" },
+        sponsors: { enabled: true, csvUrl: "" },
+      },
     },
   },
   hero: {
